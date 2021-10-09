@@ -1,2 +1,2 @@
 # GameTeca
-Sistema para biblioteca d ejogos
+Sistema para biblioteca de jogos
