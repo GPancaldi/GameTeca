@@ -24,4 +24,5 @@ Sistema para biblioteca de jogos
 - RF5 - Usuário atualiza o progesso do jogo
 - RF6 - Usuário pode excluir um jogo
 - RF7 - Usuario visualiza o seu progresso em um jogo
+- RF8 - Usuario adiciona jogo a lista de Desejos
 
