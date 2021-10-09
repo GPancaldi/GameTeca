@@ -1,3 +1,6 @@
 # GameTeca
 Sistema para biblioteca de jogos
-Nome : otavio ogo Ra : 1836056
+
+#Membros
+Gabriel Pancaldi - Ra: 1914758
+Otavio Ogo - Ra : 1836056
