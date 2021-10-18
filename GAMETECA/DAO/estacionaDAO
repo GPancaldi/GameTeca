@@ -1,1 +1,27 @@
 
+package DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import model.Estaciona;
+
+/**
+ *
+ * @author Pancaldi
+ */
+public class EstacionaDao {
+    private final Connection connection;
+    
+    public EstacionaDao(Connection connection) {
+        this.connection = connection;
+    }
+
+    public void estaciona(Estaciona e) throws SQLException {
+        String sql = "insert into estacionamento(cod, cliente, placa, hora_entrada, valor) values('"+ e.getCodigo() +"', '"+ e.getCliente() +"', '"+ e.getPlaca()+"', '"+ e.getData() +"', '"+ e.getValor() +"');";
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.execute();
+        
+    }
+}
+
