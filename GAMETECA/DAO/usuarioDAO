@@ -1,4 +1,5 @@
 
+
 package DAO;
 
 import java.sql.Connection;
@@ -23,7 +24,8 @@ public class UsuarioDAO {
     
     public void insert(Usuario usuario) throws SQLException{
   
-        String sql = "insert into usuario(usuario, senha) values('"+ usuario.getUsuario() +"', '"+ usuario.getSenha() +"');";
+        String sql = "insert into usuario(user_Usuario, senha_Usuario, nome_Usuario, email_Usuario, telefone_Usuario, nascimento_Usuario, cpf_Usuario) values('"+ usuario.getUsuario() +"',"
+                + " '"+ usuario.getSenha() +"' , '" + usuario.getNome()+"', '" + usuario.getEmail() + "' , '" + usuario.getTelefone() + "' , '" + usuario.getDatanascimento()+ "' , '" + usuario.getCpf() + "');";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
         
@@ -47,4 +49,3 @@ public class UsuarioDAO {
 
     
 }
-
