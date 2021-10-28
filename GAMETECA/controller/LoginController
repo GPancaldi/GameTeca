@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controller;
 
 import DAO.Conexao;
@@ -23,8 +27,8 @@ public class LoginController {
 
     public void autenticar() throws SQLException {
         
-        String usuario = view.getTxtUsuario().getText();
-        String senha = view.getPasswordSenha().getText();
+        String usuario = view.getTxtLogin().getText();
+        String senha = view.getTxtSenha().getText();
         
         Usuario userAutenticar = new Usuario(usuario, senha);
         
@@ -35,8 +39,7 @@ public class LoginController {
         
         if (existe){
         
-        MenuView telaDeMenu = new MenuView();
-        telaDeMenu.setVisible(true);
+       
         
         }else{
             JOptionPane.showMessageDialog(view, "usuario ou senha invalidos");
@@ -46,4 +49,3 @@ public class LoginController {
     
     
 }
-
