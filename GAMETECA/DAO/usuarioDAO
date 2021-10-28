@@ -27,8 +27,7 @@ public class UsuarioDAO {
     
     public void insert(Usuario usuario) throws SQLException{
   
-        String sql = "insert into usuario(user_Usuario, senha_Usuario, nome_Usuario, email_Usuario, telefone_Usuario, cpf_Usuario) values('"+ usuario.getUsuario() +"',"
-                + " '"+ usuario.getSenha() +"' , '" + usuario.getNome()+"', '" + usuario.getEmail() + "' , '" + usuario.getTelefone() + "' , '" + usuario.getCpf() + "');";
+        String sql = "insert into usuario( user_usuario, senha_usuario, nome_usuario, email_usuario, telefone_usuario, cpf_usuario) values('"+ usuario.getUsuario() +"', '"+ usuario.getSenha() +"' , '" + usuario.getNome()+"', '" + usuario.getEmail() + "' , '" + usuario.getTelefone() + "' , '" + usuario.getCpf() + "');";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
         
@@ -39,7 +38,7 @@ public class UsuarioDAO {
     }
 
     public boolean autenticarUsuario(Usuario user) throws SQLException {
-        String sql = "select * from usuario where usuario = '"+user.getUsuario()+"' and senha = '"+user.getSenha()+"'";
+        String sql = "select * from usuario where user_usuario = '"+user.getUsuario()+"' and senha_usuario = '"+user.getSenha()+"'";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
         
