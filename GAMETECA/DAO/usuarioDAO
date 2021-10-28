@@ -1,5 +1,8 @@
-
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package DAO;
 
 import java.sql.Connection;
@@ -24,8 +27,8 @@ public class UsuarioDAO {
     
     public void insert(Usuario usuario) throws SQLException{
   
-        String sql = "insert into usuario(user_Usuario, senha_Usuario, nome_Usuario, email_Usuario, telefone_Usuario, nascimento_Usuario, cpf_Usuario) values('"+ usuario.getUsuario() +"',"
-                + " '"+ usuario.getSenha() +"' , '" + usuario.getNome()+"', '" + usuario.getEmail() + "' , '" + usuario.getTelefone() + "' , '" + usuario.getDatanascimento()+ "' , '" + usuario.getCpf() + "');";
+        String sql = "insert into usuario(user_Usuario, senha_Usuario, nome_Usuario, email_Usuario, telefone_Usuario, cpf_Usuario) values('"+ usuario.getUsuario() +"',"
+                + " '"+ usuario.getSenha() +"' , '" + usuario.getNome()+"', '" + usuario.getEmail() + "' , '" + usuario.getTelefone() + "' , '" + usuario.getCpf() + "');";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
         
