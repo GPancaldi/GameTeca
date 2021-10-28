@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,10 +16,9 @@ public class Usuario {
     private String nome;
     private String email;
     private int telefone;
-    private int datanascimento;
     private String cpf;
 
-    public Usuario(int id, String usuario, String senha, String nome, String email, int telefone, int datanascimento, String cpf) {
+    public Usuario(int id, String usuario, String senha, String nome, String email, int telefone, String cpf) {
         
         this.id = id;
         this.usuario = usuario;
@@ -28,10 +26,19 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
-        this.datanascimento = datanascimento;
         this.cpf = cpf;
     }
     
+    public Usuario(String usuario, String senha, String nome, String email, int telefone, String cpf) {
+        
+        
+        this.usuario = usuario;
+        this.senha = senha;
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+        this.cpf = cpf;
+    }
     
 
     
@@ -92,14 +99,6 @@ public class Usuario {
         this.telefone = telefone;
     }
 
-    public int getDatanascimento() {
-        return datanascimento;
-    }
-
-    public void setDatanascimento(int datanascimento) {
-        this.datanascimento = datanascimento;
-    }
-
     public String getCpf() {
         return cpf;
     }
@@ -111,4 +110,3 @@ public class Usuario {
     
     
 }
-
