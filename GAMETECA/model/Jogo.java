@@ -16,9 +16,9 @@ public class Jogo {
     private int anoLancamentoJogo;
     private String desenvolvedoraJogo;
     private String distribuidoraJogo;
-    private float progessoJogo;
+    private float progressoJogo;
 
-    public Jogo(int idJogo, String nomeJogo, String generoJogo, int anoLancamentoJogo, String desenvolvedoraJogo, String distribuidoraJogo, float progessoJogo) {
+    public Jogo(int idJogo, String nomeJogo, String generoJogo, int anoLancamentoJogo, String desenvolvedoraJogo, String distribuidoraJogo, float progressoJogo) {
         
         this.idJogo = idJogo;
         this.nomeJogo = nomeJogo;
@@ -26,9 +26,19 @@ public class Jogo {
         this.anoLancamentoJogo = anoLancamentoJogo;
         this.desenvolvedoraJogo = desenvolvedoraJogo;
         this.distribuidoraJogo = distribuidoraJogo;
-        this.progessoJogo = progessoJogo;
+        this.progressoJogo = progressoJogo;
     }
     
+    public Jogo(String nomeJogo, String generoJogo, int anoLancamentoJogo, String desenvolvedoraJogo, String distribuidoraJogo, float progressoJogo) {
+        
+        this.nomeJogo = nomeJogo;
+        this.generoJogo = generoJogo;
+        this.anoLancamentoJogo = anoLancamentoJogo;
+        this.desenvolvedoraJogo = desenvolvedoraJogo;
+        this.distribuidoraJogo = distribuidoraJogo;
+        this.progressoJogo = progressoJogo;
+        
+    }
     
     
 
@@ -80,12 +90,12 @@ public class Jogo {
         this.distribuidoraJogo = distribuidoraJogo;
     }
 
-    public float getProgessoJogo() {
-        return progessoJogo;
+    public float getProgressoJogo() {
+        return progressoJogo;
     }
 
-    public void setProgessoJogo(float progessoJogo) {
-        this.progessoJogo = progessoJogo;
+    public void setProgressoJogo(float progressoJogo) {
+        this.progressoJogo = progressoJogo;
     }
     
     
