@@ -15,6 +15,10 @@ import model.Jogo;
  */
 public class JogoDAO {
     private final Connection connection;
+    PreparedStatement pstm;
+    ResultSet rs;
+    ArrayList<Jogo> lista = new ArrayList<>();
+    
     
     public JogoDAO(Connection connection){
             this.connection = connection;
@@ -27,6 +31,40 @@ public class JogoDAO {
     
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
+    }
+     public ArrayList<Jogo> ListarJogoUsuario(){
+        String sql = "select * from Jogo";
+        //chamar o banco //
+        
+        try {
+            pstm = connection.prepareStatement(sql);
+            rs = pstm.executeQuery();
+            
+            while(rs.next()){
+                Jogo objJogo = new Jogo();
+                objJogo.setIdJogo(rs.getInt("IdJogo"));
+                objJogo.setNomeJogo(rs.getString("nome_jogo"));
+                objJogo.setGeneroJogo(rs.getString("genero_jogo"));
+                objJogo.setAnoLancamentoJogo(rs.getInt("ano_jogo"));
+                objJogo.setDesenvolvedoraJogo(rs.getString("desenvolvedora_jogo"));
+                objJogo.setDistribuidoraJogo(rs.getString("distribuidora_jogo"));
+                objJogo.setProgessoJogo(rs.getFloat("progresso_jogo"));
+                
+                
+                lista.add(objJogo);
+                
+                
+            }
+            
+            
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "JogoDAO Listar: " + erro);
+                                
+            
+        }
+        
+        return lista;
+         
     }
 
 }
