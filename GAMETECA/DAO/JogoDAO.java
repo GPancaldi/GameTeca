@@ -8,8 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Jogo;
 
 /**
@@ -18,10 +20,12 @@ import model.Jogo;
  */
 public class JogoDAO {
     private final Connection connection;
+    public Jogo jogo;
     
     public JogoDAO(Connection connection){
             this.connection = connection;
     }
+    
 
     public void insert(Jogo jogo) throws SQLException{
         
@@ -30,6 +34,43 @@ public class JogoDAO {
     
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.execute();
+    }
+    
+    public ArrayList<Jogo> listarTodosJogos() throws SQLException{
+        
+        
+        String sql = "select * from jogo";
+        ArrayList<Jogo> jogo = new ArrayList<Jogo>();
+        
+        try{
+        
+        PreparedStatement statement = connection.prepareStatement(sql);
+        
+        statement.execute();
+        ResultSet resultSet = statement.getResultSet();
+        
+        resultSet = statement.executeQuery();
+        
+        while(resultSet.next()){
+            String nomeJogo = resultSet.getString("nome_jogo");
+            String generoJogo = resultSet.getString("genero_jogo");
+            int anoLancamento = resultSet.getInt("ano_jogo");
+            String desenvolvedora = resultSet.getString("desenvolvedora_jogo");
+            String distribuidora = resultSet.getString("distribuidora_jogo");
+            Float  progresso = resultSet.getFloat("progresso_jogo");
+            
+            Jogo jogocomDados = new Jogo(nomeJogo, generoJogo, anoLancamento, desenvolvedora, distribuidora, progresso);
+            jogo.add(jogocomDados);
+        }
+        
+        
+        
+    } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao listar!");
+    } 
+       
+    return jogo;    
+        
     }
 
 }
