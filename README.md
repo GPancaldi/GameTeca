@@ -4,6 +4,7 @@ Sistema para biblioteca de jogos
 #Membros
 - Gabriel Pancaldi - Ra: 1914758
 - Otavio Ogo - Ra : 1836056
+- Philipe Loureiro - Ra:1884727
 
 #Requisitos Técnicos
 - Linguagem de Programação Java
