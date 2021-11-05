@@ -32,8 +32,6 @@ public class UsuarioDAO {
         statement.execute();
         
             
-            
-            
         
     }
 
