@@ -18,12 +18,16 @@ Sistema para biblioteca de jogos
 
 #Requisitos Funcionais
 
-- RF1 - Usuário realiza Login
-- RF2 - Usuário realiza cadastro
-- RF3 - Usuário Cadastra um Jogo
-- RF4 - Usuário Lista seus Jogos
-- RF5 - Usuário atualiza o progesso do jogo
-- RF6 - Usuário pode excluir um jogo
-- RF7 - Usuario visualiza o seu progresso em um jogo
-- RF8 - Usuario adiciona jogo a lista de Desejos
+- 1 - Login do usuário
+- 2 - Cadastro de usuário
+- 3 - Cadastrar jogos
+- 4 - Listar jogos do usuário
+- 5 - Visualizar o progresso no jogo
+- 6 - Alterar o progresso do jogo
+- 7 - Buscar jogos
+- 8 - Buscar usuários
+- 9 - Enviar comentários à registros de jogos de outros usuários
+- 10 - Excluir um jogo
+- 11 - Visualizar lista de desejos
+- 12 - Adicionar jogo à lista de desejos
 
