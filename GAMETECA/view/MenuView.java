@@ -1,4 +1,3 @@
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,8 +5,14 @@
  */
 package view;
 
+import DAO.Conexao;
 import DAO.JogoDAO;
+import controller.MenuViewController;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Jogo;
@@ -16,14 +21,14 @@ import model.Jogo;
  *
  * @author otávio
  */
-public class Listagem extends javax.swing.JFrame {
+public class MenuView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Listagem
-     */
-    public Listagem() {
+    private final MenuViewController controller;
+    
+    public MenuView() {
         initComponents();
-        listarValores();
+        controller = new MenuViewController(this);
+        
     }
 
     /**
@@ -35,35 +40,40 @@ public class Listagem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TabelaJogo = new javax.swing.JTable();
         btnListar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 76, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 294, Short.MAX_VALUE)
-        );
-
         TabelaJogo.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "NomeJogo", "Genero", "Ano de lancamento", "Desenvolvedora", "Distribuidora", "Progresso Atual"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TabelaJogo);
 
         btnListar.setFont(new java.awt.Font("Arial Black", 1, 11)); // NOI18N
@@ -80,33 +90,54 @@ public class Listagem extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(494, 494, 494))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(219, 219, 219)
+                .addGap(300, 300, 300)
                 .addComponent(btnListar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(69, 69, 69)
+                .addContainerGap(82, Short.MAX_VALUE)
                 .addComponent(btnListar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>                        
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        listarValores();
+            
+            DefaultTableModel modelo = (DefaultTableModel) TabelaJogo.getModel();
+            modelo.setNumRows(0);
+        
+            try{
+                Connection conexao = new Conexao().getConnection();
+                JogoDAO jogoDao = new JogoDAO(conexao);
+                ArrayList<Jogo> lista = jogoDao.listarTodosJogos();
+                
+                for(Jogo j: lista){
+                    modelo.addRow(new Object[]{
+                        j.getNomeJogo(),
+                        j.getGeneroJogo(),
+                        j.getAnoLancamentoJogo(),
+                        j.getDesenvolvedoraJogo(),
+                        j.getDistribuidoraJogo(),
+                        j.getProgressoJogo()
+                        
+                    });
+                }
+                
+                
+            }catch(SQLException ex) {
+            Logger.getLogger(CadastroJogoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+            
     }                                         
 
     /**
@@ -126,20 +157,21 @@ public class Listagem extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Listagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Listagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Listagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Listagem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(MenuView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Listagem().setVisible(true);
+                new MenuView().setVisible(true);
             }
         });
     }
@@ -147,37 +179,10 @@ public class Listagem extends javax.swing.JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JTable TabelaJogo;
     private javax.swing.JButton btnListar;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration                   
 
-    private void listarValores(){
-        try {
-             JogoDAO objJogoDAO = new JogoDAO();
-             
-             DefaultTableModel model = (DefaultTableModel) TabelaJogo.getModel();
-             model.setNumRows(0);
-             
-             ArrayList<Jogo> lista = objJogoDAO.ListarJogoUsuario();
-             
-             for(int num = 0; num< lista.size(); num ++){
-                    model.addRow(new Object []{
-                        lista.get(num).getIdJogo(),
-                        lista.get(num).getAnoLancamentoJogo(),
-                        lista.get(num).getDesenvolvedoraJogo(),
-                        lista.get(num).getDistribuidoraJogo(),
-                        lista.get(num).getGeneroJogo(),
-                        lista.get(num).getProgessoJogo(),
-                        lista.get(num).getNomeJogo()
-                        
-             });
-             }
-            
-        } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "Listar Valores VIEW:" + erro);
-            
-        }
-    }
+    
 
 }
 
