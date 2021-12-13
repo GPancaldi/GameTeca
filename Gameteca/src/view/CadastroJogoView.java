@@ -20,16 +20,28 @@ public class CadastroJogoView extends javax.swing.JFrame {
     private final CadastroJogoController controller;
 
     private String genero, desenvolvedora, distribuidora;
-    
+    DefaultListModel MODELO;
 
     public CadastroJogoView() {
         initComponents();
         controller = new CadastroJogoController(this);
+         Lista.setVisible(false);
+        MODELO = new DefaultListModel();
+        Lista.setModel(MODELO);
+        int Enter = 0;
         
         
         
     }
     
+     public void MostraPesquisa() {
+        int Linha = Lista.getSelectedIndex();
+        if (Linha >= 0 {
+            CONEXAO.executaSQL("SELECT * FROM usuario where nome like '"
+            + "" + PesquisaNome.getTExt() + "%' ORDER BY usuario LIMIT" + Linha + ", 1") ;
+            ResultadoPesquisa();
+        })
+    }
     
 
     public void escolherGenero() {
@@ -359,6 +371,26 @@ public class CadastroJogoView extends javax.swing.JFrame {
     private void txtAnoLancamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAnoLancamentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAnoLancamentoActionPerformed
+    
+     private void PesquisaNomeActionPerformed(java.awt.event.ActionEvent evt) {                                             
+            Lista.setVisible(false);
+            Enter = 1;
+        
+    }                                            
+
+    private void PesquisaNomeKeyReleased(java.awt.event.KeyEvent evt) {                                         
+                if(Enter == 0)
+                  ListadePesquisa();
+                else
+                        Enter = 0;
+                        
+    }                                        
+
+    private void ListaMousePressed(java.awt.event.MouseEvent evt) {                                   
+        MostraPesquisa();
+        Lista.setVisible(false);
+        
+    }        
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
         MenuView tela = new MenuView();
@@ -411,6 +443,8 @@ public class CadastroJogoView extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+     private javax.swing.JList<String> Lista;
+    private javax.swing.JTextField PesquisaNome;
     private javax.swing.JComboBox<String> boxDesenvolvedora;
     private javax.swing.JComboBox<String> boxDistribuidora;
     private javax.swing.JButton btCadastrar;
@@ -438,6 +472,27 @@ public class CadastroJogoView extends javax.swing.JFrame {
     private javax.swing.JTextField txtProgresso;
     // End of variables declaration//GEN-END:variables
 
-   
+    public void ListadePesquisa() {
+        try{
+            CONEXAO.executaSQL("SELECT * FROM usuario where nome like '" + PesquisaNome.getText() + "%' ORDER by usuario");
+            MODELO.removeALLElements();
+            int v = 0;
+            while (CONEXAO.resultset.next() & v <4) {
+                MODELO.addElement(CONEXAO.resultset.getString("nome"));
+                v++;
+            }
+            
+            if (v >= 1) {
+               Lista.setVisivle(true);
+               
+            } else {
+                Lista.setVisible(false);
+            }
+            
+            ResultadoPesquisa();
+        }catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Erro ao Buscar Usuario" + erro);
+        }
+    }
  
 }
